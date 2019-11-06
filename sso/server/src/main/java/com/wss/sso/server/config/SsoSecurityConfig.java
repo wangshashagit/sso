@@ -25,11 +25,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Order(1)
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManager() throws Exception{
-        return super.authenticationManagerBean();
-    }
 
     //拦截页面
     @Override
@@ -47,11 +42,15 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.parentAuthenticationManager(authenticationManager())
-                .inMemoryAuthentication()
+        auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password("123")
+                .password(passwordEncoder().encode("123"))
                 .roles("USER"); }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
 //    @Override
 //    public void configure(WebSecurity web) {
@@ -62,8 +61,4 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }

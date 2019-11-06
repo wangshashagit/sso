@@ -18,6 +18,3 @@ security:
 spring:
   thymeleaf:
     cache: false
-
-
-
