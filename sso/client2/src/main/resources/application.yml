@@ -1,22 +1,23 @@
 server:
   port: 8082
-  context-path: /client2
+  context-path: /
   session:
     cookie:
-      name: UISESSION
+      name: SESSION2
 security:
   basic:
     enabled: false
   oauth2:
     client:
-      clientId: client2
+      clientId: clientId2
       clientSecret: clientSecret2
       accessTokenUri: http://localhost:8080/auth/oauth/token
       userAuthorizationUri: http://localhost:8080/auth/oauth/authorize
     resource:
-      userInfoUri: http://localhost:8080/auth/user/me
+      userInfoUri: http://localhost:8080/auth/user
 spring:
   thymeleaf:
     cache: false
+
 
 

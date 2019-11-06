@@ -23,7 +23,7 @@
             <el-button type="primary" style="width:47%;" @click.native.prevent="reset">重 置</el-button>
             <el-button type="primary" style="width:47%;" native-type="submit" :loading="loading">登 录</el-button>
         </el-form-item>
-        <el-form>
+        </el-form>
 </div>
 </body>
 
@@ -36,6 +36,10 @@
             password: '123'
         },
         methods : {
+            reset: function() {
+                this.username = 'admin'
+                this.password = '123'
+            }
         }
     })
 

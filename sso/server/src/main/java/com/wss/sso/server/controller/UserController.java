@@ -1,21 +1,22 @@
 package com.wss.sso.server.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.security.Principal;
 
-/**
- * @Description
- * @Author wangshasha
- * @Date 2019-11-05 11:05
- * @Version
- */
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class UserController {
 
-    @GetMapping("/user/me")
+    /**
+     * 资源服务器提供的受保护接口
+     * @param principal
+     * @return
+     */
+    @RequestMapping("/user")
     public Principal user(Principal principal) {
+        System.out.println(principal);
         return principal;
     }
+
 }

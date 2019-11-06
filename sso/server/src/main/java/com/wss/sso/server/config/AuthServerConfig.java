@@ -20,8 +20,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @Date 2019-11-05 10:25
  * @Version
  */
-@EnableAuthorizationServer
+
 @Configuration
+@EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -30,23 +31,29 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
-        security.checkTokenAccess("isAuthenticated()");
-        security.tokenKeyAccess("permitAll()");
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+
     }
 
     //两个客户端 使用授权码方式
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("clientId1")
-                .secret("clientSecret1")
+                .withClient("clientId")
+                .secret("clientSecret")
                 .authorizedGrantTypes("authorization_code")
                 .scopes("user_info")
+                .autoApprove(false)
+                .redirectUris("http://localhost:8081/login")
+                .accessTokenValiditySeconds(10)
                 .and()
                 .withClient("clientId2")
                 .secret("clientSecret2")
                 .authorizedGrantTypes("authorization_code")
-                .scopes("user_info").autoApprove(true);
+                .scopes("user_info")
+                .autoApprove(false)
+                .redirectUris("http://localhost:8082/login")
+                .accessTokenValiditySeconds(10);
     }
 
     //使用简单的内存方式发放令牌

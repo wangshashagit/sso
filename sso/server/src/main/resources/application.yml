@@ -2,6 +2,6 @@ server:
   port: 8080
   servlet:
     context-path: /auth
-security:
-  basic:
-    enabled: false
+spring:
+  thymeleaf:
+    cache: false
